@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace HubtelCommerce.Helpers
 {
@@ -14,7 +15,7 @@ namespace HubtelCommerce.Helpers
 
 		public string GetCustomerId()
 		{
-			return _accessor.HttpContext!.User.FindFirst(JwtRegisteredClaimNames.Jti)!.Value;
+			return _accessor.HttpContext!.User.FindFirst(ClaimTypes.PrimarySid)!.Value;
 		}
 	}
 }

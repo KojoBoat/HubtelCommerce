@@ -6,7 +6,7 @@ namespace HubtelCommerce.Models
 		public string? CustomerId { get; set; }
 		public string? CartId { get; set; }
 		public string? ItemId { get; set; }
-		public int CustomerTelNumber { get; set; }
+		public string? CustomerTelNumber { get; set; }
 		public DateTime Time { get; set; }
 	}
 }

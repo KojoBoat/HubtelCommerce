@@ -11,10 +11,9 @@ namespace HubtelCommerce.ViewModels
         public string? CartId { get; set; }
         [Required]
         public string? ItemId { get; set; }
-        [Required]
         public string? CustomerId { get; set; }
         [Required]
-        public int CustomerTelNumber { get; set; }
+        public string? CustomerTelNumber { get; set; }
         public DateTime Time { get; set; }
         [Required]
         public string? ItemName { get; set; }

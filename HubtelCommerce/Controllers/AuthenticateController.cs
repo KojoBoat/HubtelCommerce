@@ -38,7 +38,7 @@ namespace HubtelCommerce.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, credentials.UserName!),
-                    new Claim(JwtRegisteredClaimNames.Jti, _guid.GenerateGuid())
+                    new Claim(ClaimTypes.PrimarySid, user.Id)
                 };
 
                 var token = GenerateToken(claims);

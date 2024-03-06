@@ -1,5 +1,6 @@
 ﻿using System;
 using HubtelCommerce.Database;
+using HubtelCommerce.FiltersModel;
 using HubtelCommerce.Helpers;
 using HubtelCommerce.Models;
 using Microsoft.EntityFrameworkCore;
@@ -46,15 +47,23 @@ namespace HubtelCommerce.Service
             return cartItem!;
         }
 
-        public async Task<IEnumerable<Cart>> GetAllCartItemsAsync(string cartId, string userId)
+        public async Task<IEnumerable<Cart>> GetAllCartItemsAsync(string cartId, string userId, CartFilterModel? model)
         {
             if (!string.IsNullOrWhiteSpace(userId) && !string.IsNullOrWhiteSpace(cartId))
             {
-                var itemsInCart = await _dbContext.Carts
-                    .Where(x => x.CustomerId == userId && x.CartId == cartId)
-                    .ToListAsync();
+                var itemsInCart = _dbContext.Carts
+                    .Where(x => x.CustomerId == userId && x.CartId == cartId);
 
-                return itemsInCart;
+                if (model is not null)
+                {
+                    if (!string.IsNullOrEmpty(model.ItemName))
+                        itemsInCart = itemsInCart.Where(x => x.ItemName == model.ItemName);
+                    if (!string.IsNullOrEmpty(model.PhoneNumber))
+                        itemsInCart = itemsInCart.Where(x => x.CustomerTelNumber == model.PhoneNumber);
+                }
+                var results = await itemsInCart.ToListAsync();
+
+                return results;
             }
             return Enumerable.Empty<Cart>();
         }

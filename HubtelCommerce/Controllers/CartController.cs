@@ -1,4 +1,5 @@
 ﻿using System;
+using HubtelCommerce.FiltersModel;
 using HubtelCommerce.Helpers;
 using HubtelCommerce.Models;
 using HubtelCommerce.Service;
@@ -56,11 +57,11 @@ namespace HubtelCommerce.Controllers
 		}
 
 		[HttpGet("GetAllItems/{cartId}")]
-		public async Task<IActionResult> GetAllItemsInCartAsync(string cartId)
+		public async Task<IActionResult> GetAllItemsInCartAsync(string cartId, [FromQuery] CartFilterModel model)
 		{
 			try
 			{
-				var results = await _repoService.GetAllCartItemsAsync(cartId, _userId.GetCustomerId());
+				var results = await _repoService.GetAllCartItemsAsync(cartId, _userId.GetCustomerId(), model);
 				if (results is null)
 					return NotFound("Cart is Empty");
 				return Ok(results);
