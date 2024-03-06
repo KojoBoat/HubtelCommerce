@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using HubtelCommerce.Helpers;
 using HubtelCommerce.Models;
 using HubtelCommerce.ResponseModel;
 using Microsoft.AspNetCore.Identity;
@@ -17,13 +18,15 @@ namespace HubtelCommerce.Controllers
 		private readonly IConfiguration _configuration;
 		private readonly UserManager<User> _userManager;
         private readonly ILogger<AuthenticateController> _logger;
+        private readonly IGuidGenerator _guid;
 
         public AuthenticateController(IConfiguration configuration, UserManager<User> userManager
-            , ILogger<AuthenticateController> logger)
+            , ILogger<AuthenticateController> logger, IGuidGenerator guid)
         {
             _configuration = configuration;
             _userManager = userManager;
             _logger = logger;
+            _guid = guid;
         }
 
         [HttpPost("login")]
@@ -35,7 +38,7 @@ namespace HubtelCommerce.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, credentials.UserName!),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, _guid.GenerateGuid())
                 };
 
                 var token = GenerateToken(claims);
@@ -59,13 +62,13 @@ namespace HubtelCommerce.Controllers
             {
                 Email = model.Email,
                 UserName = model.UserName,
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = _guid.GenerateGuid()
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
             {
-                _logger.LogError($"Error creating user! {result}");
+                _logger.LogError(message: "Error creating user!");
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user logs and try again." });
             }
 
@@ -79,7 +82,7 @@ namespace HubtelCommerce.Controllers
             var token = new JwtSecurityToken(
                 issuer: _configuration.GetSection("JWT:ValidIssuer").Value,
                 audience: _configuration.GetSection("JWT:ValidAudience").Value,
-                expires: DateTime.Now.AddMinutes(10),
+                expires: DateTime.Now.AddDays(1),
                 claims: claims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );

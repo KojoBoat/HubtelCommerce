@@ -26,6 +26,8 @@
     <None Remove="Service\" />
     <None Remove="ResponseModel\" />
     <None Remove="Helpers\" />
+    <None Remove="ViewModels\" />
+    <None Remove="FiltersModel\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -34,5 +36,7 @@
     <Folder Include="Service\" />
     <Folder Include="ResponseModel\" />
     <Folder Include="Helpers\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="FiltersModel\" />
   </ItemGroup>
 </Project>

@@ -6,9 +6,9 @@ namespace HubtelCommerce.Service
 	public interface IHubtelRepositoryService
 	{
 		public Task<Cart> AddOrUpdateItemsToCartAsync(Cart cart);
-		public Task<IEnumerable<Cart>> GetAllCartItemsAsync(string customerId);
-		public Task RemoveItemAsync(string itemId, string customerId);
-		public Task<Cart?> GetSingleItemAsync(string itemId, string customerId);
+		public Task<IEnumerable<Cart>> GetAllCartItemsAsync(string cartId, string userId);
+		public Task RemoveItemAsync(string cartId, string itemId, string userId);
+		public Task<Cart?> GetSingleItemAsync(string cartId, string itemId, string userId);
 	}
 }
 
