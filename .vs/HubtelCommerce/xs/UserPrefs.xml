@@ -1,4 +1,5 @@
-﻿<Properties StartupConfiguration="{BF377BE1-5A78-40A6-AEDC-DC79D16A8183}|Default">
+﻿<Properties StartupConfiguration="{D6B92048-A382-439C-B6AF-2EAC4D58D6C3}|Default">
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.HubtelCommerce FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.HubtelCommerce FirstBuild="True" PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.ItemProperties.docker-compose PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

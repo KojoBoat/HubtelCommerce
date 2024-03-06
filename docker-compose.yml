@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  hubtelcommerce:
+    image: ${DOCKER_REGISTRY-}hubtelcommerce
+    build:
+      context: .
+      dockerfile: HubtelCommerce/Dockerfile
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  hubtelDb:
+    image: postgres
+
+volumes:
+  postgres_data:
+  pgadmin_data:
