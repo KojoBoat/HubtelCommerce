@@ -1,4 +1,4 @@
-# A simple CRUD service which handles Cart operations for users. 
+# A simple CRUD application that handles Cart operations for users. 
 
 # Tools
 Docker
